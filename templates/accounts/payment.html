@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+{% block title %}Select Address{% endblock title %}
+{% block content %}
+
+<div class='container mt-5 mb-5'>
+    <div class='row'>
+        <main class="col-md-9">
+            <h1>Select Address</h1>
+
+            <form id="select-address-form" method="post" action="">
+                {% csrf_token %}
+
+                {% if addresses %}
+                    <ul>
+                        {% for address in addresses.all %}
+                            <li>
+                                <input type="radio"  name="radiobtn" value="{{ address.uid }}">
+                                {{ address.address }}, {{ address.city }}, {{ address.state }}, {{ address.zipcode }}, {{ address.country }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No addresses found.</p>
+                {% endif %}
+                <button href='{% url 'checkout' %}'type="submit" id="select-address-btn" class="btn btn-primary" disabled>Select Address</button>
+            </form>
+            <hr>
+
+            <h2>Add New Address</h2>
+            <form id="add-address-form" method="post" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="new-address">Address</label>
+                    <input type="text" name="address" id="new-address" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-city">City</label>
+                    <input type="text" name="city" id="new-city" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-country">State</label>
+                    <select name="state" id="new-state" class="form-control" required>
+                        {% for state in states %}
+                            <option value="{{ state }}">{{ state }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-zipcode">Zipcode</label>
+                    <input type="text" name="zipcode" id="new-zipcode" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-country">Country</label>
+                    <select name="country" id="new-country" class="form-control" required>
+                        {% for country in countries %}
+                            <option value="{{ country }}">{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" id="add-address-btn" class="btn btn-primary">Add Address</button>
+            </form>
+        </main>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAddressForm = document.getElementById('select-address-form');
+        const selectAddressBtn = document.getElementById('select-address-btn');
+
+        const radioButtons = document.querySelectorAll('input[type="radio"][name="radiobtn"]');
+        radioButtons.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                selectAddressBtn.disabled = false;
+            });
+        });
+
+        selectAddressForm.addEventListener('submit', function(event) {
+            const checkedRadio = document.querySelector('input[type="radio"][name="radiobtn"]:checked');
+            if (!checkedRadio) {
+                event.preventDefault();
+                alert('Please select an address');
+            }
+        });
+    });
+
+    
+
+</script>
+
+{% endblock content %}

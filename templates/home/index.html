@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block content %}
+<div id="carouselExampleAutoplaying" class="carousel slide mt-2" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'images/banners/1.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/banners/2.png' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/banners/b3.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+<div class="container mt-5 pt-5">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3">
+            <a href="{% url 'get_product' product.slug %}" class='title'>
+                <figure class="card card-product-grid">
+                    <div class="img-wrap">
+                        <img src="/media/{{product.product_images.first.image}}">
+                    </div>
+                    <figcaption class="info-wrap border-top">
+                        {{product.product_name}}
+                        <div class="price mt-2">₹{{product.price}}</div>
+                    </figcaption>
+                </figure> <!-- card // -->
+            </a>
+        </div> <!-- col.// -->
+        {% endfor %}
+    </div> <!-- row.// -->
+</div> <!-- container.// -->
+
+
+
+    
+
+
+
+
+{% endblock content %}

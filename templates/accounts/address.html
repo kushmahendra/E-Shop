@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block content %}
+<div class="container my-5">
+ <div class="row">
+ <h5>Welcome {{user.first_name}}</h5>
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid mb-2"><a href="{% url 'profile' %}" class="btn btn-outline-primary">Profile</a></li>
+    <li class="d-grid mb-2"><a href="{% url 'address' %}" class="btn btn-outline-primary" >Address</a></li>
+    <li class="d-grid mb-2"><a href="{% url 'orders' %}" class="btn btn-outline-primary" >Orders</a></li>
+    <li class="d-grid mb-2"><a href="{% url 'logout' %}" class="btn btn-outline-primary" >Logout</a></li>
+   </ul>
+  </div>
+  <div class="col-sm-9 offset-sm-1">
+   <div class="row">
+    {% for address in addresses %}
+    <div class="card mb-3 mx-2" style="width: 18rem;">
+        <div class="card-body">
+          {% comment %} <h5 class="card-title">Address 1</h5> {% endcomment %}
+          {% comment %} <p class="card-text">Name: {{user.first_name}} {{user.last_name}}</p> {% endcomment %}
+          <p class="card-text">Address: {{address.address}}</p>
+          <p class="card-text">City: {{address.city}}</p>
+          <p class="card-text">State: {{address.state}}</p>
+          <p class="card-text">Zipcode: {{address.zipcode}}</p>
+          <p class="card-text">Country: {{address.country}}</p>
+
+
+
+          <a  href="{% url 'remove_address' address.uid %}" class="btn btn-primary">Delete Address</a>
+        </div>
+      </div>
+      {% endfor %}
+    
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+{% endblock content %}

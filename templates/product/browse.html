@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<div class='pb-6 container mt-4'>
+    <div class='row'>
+        <div class='col-md-2'>
+            <p class='font-weight-bold'>Categories</p>
+            <ul class='list-group'>
+            {% for category in categories %}
+            <li class='list-group-item{% if category.id == category_id %} bg-gray-200{% endif %}'>
+            <a href="{% url 'searched_products' %}?category={{category.slug}}" style="text-decoration:none;">{{category.category_name}}</a>
+             </li>
+             {% endfor %}
+            </ul>
+
+            <hr class='my-6'>
+            <p class='font-weight-bold'>Categories</p>
+             <ul class='list-group'>
+            <li>
+            <a href="{% url 'searched_products' %}" class='btn btn-warning btn-block'>Clear</a>
+            </li>
+            </ul>
+    
+        </div>
+
+        <div class='col-md-8'>
+            <div class='row'>
+                {% for product in products %}
+                <div class="col-md-3">
+                    <a href="{% url 'get_product' product.slug %}" class='title'>
+                        <figure class="card card-product-grid">
+                            <div class="img-wrap">
+                                <img src="/media/{{product.product_images.first.image}}">
+                            </div>
+                            <figcaption class="info-wrap border-top">
+                                <b>{{product.product_name}}</b>
+                                <div class="price mt-2">₹{{product.price}}</div> <!-- price-wrap.// -->
+                            </figcaption>
+                        </figure>
+                    </a> <!-- card // -->
+                </div> <!-- col.// -->
+                {% endfor %}
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock content %}

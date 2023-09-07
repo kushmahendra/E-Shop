@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../../Documents/Downloads/Compressed/complete-djano-ecommerce-youtube-main"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "eCart"
+	}
+}
